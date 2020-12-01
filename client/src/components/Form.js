@@ -24,6 +24,7 @@ class Form extends React.Component {
 		};
 	}
 
+	//loading the available time slots
 	componentDidMount = () => {
 		this.url =
 			"https://script.google.com/macros/s/AKfycbzJ8Nn2ytbGO8QOkGU1kfU9q50RjDHje4Ysphyesyh-osS76wep/exec";
@@ -40,6 +41,7 @@ class Form extends React.Component {
 			});
 	};
 
+	//function to convert unix stamp to HH:MM time format
 	getTime = (unixTime) => {
 		var dateObj = new Date(unixTime * 1);
 		var hour = dateObj.getHours().toString().padStart(2, "0");
@@ -47,6 +49,7 @@ class Form extends React.Component {
 		return { timeStamp: unixTime, hour: hour, min: min };
 	};
 
+	//function to convert unix stamp to MM/DD/YYYY date format
 	getDate = (unixTime) => {
 		var dateObj = new Date(unixTime * 1);
 		var year = dateObj.getFullYear();
@@ -63,6 +66,7 @@ class Form extends React.Component {
 		};
 	};
 
+	//function to seting the available date list
 	setDateList = (courseName) => {
 		var course = this.data.filter((c) => c.course_name === courseName)[0];
 		var dates = {};
@@ -82,6 +86,7 @@ class Form extends React.Component {
 		this.setState({ dateList: dates });
 	};
 
+	//function to sort the date list
 	getSortedDates = () => {
 		var dateList = this.state.dateList;
 		var dates = Object.keys(dateList);
@@ -92,6 +97,7 @@ class Form extends React.Component {
 		return dates;
 	};
 
+	//function to set the sorted time slots list
 	setTimeList = (date) => {
 		var slots = this.state.dateList[date].slots;
 
@@ -102,6 +108,7 @@ class Form extends React.Component {
 		this.setState({ timeList: slots });
 	};
 
+	//functions to handle controlled inputs
 	handleParentName = (event) => {
 		event.preventDefault();
 		this.setState({ parentName: event.target.value });
@@ -143,6 +150,7 @@ class Form extends React.Component {
 		this.setState({ time: event.target.value });
 	};
 
+	//function to handle form submit
 	handleSubmit = (event) => {
 		event.preventDefault();
 		this.setState({ loading: true });
